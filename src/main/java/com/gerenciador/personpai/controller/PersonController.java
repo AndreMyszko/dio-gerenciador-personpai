@@ -2,39 +2,30 @@ package com.gerenciador.personpai.controller;
 
 import com.gerenciador.personpai.dto.MessageResponseDTO;
 import com.gerenciador.personpai.entity.Person;
-import com.gerenciador.personpai.repository.PersonRepository;
+import com.gerenciador.personpai.service.PersonService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/people")
 public class PersonController {
-    
-    private PersonRepository personRepository;
+
+    private PersonService personService;
     
     @Autowired
-    public PersonController(PersonRepository personRepository){
-        this.personRepository = personRepository;
+    public PersonController(PersonService personService){
+        this.personService = personService;
     }
-
+    
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED )
     public MessageResponseDTO createPerson(@RequestBody Person person){
-        Person savedPerson = personRepository.save(person);
-        //System.out.println("adicionado pessoa: " + person);
-        
-        return MessageResponseDTO
-        .builder()
-        .message("Created person with ID: " + savedPerson.getId())
-        .build();
+        return personService.createPerson(person);     
     }
-
-    // @GetMapping
-    // public String getBook() {
-    //     return "Hello World! Api Test OK";
-    // }
 }
