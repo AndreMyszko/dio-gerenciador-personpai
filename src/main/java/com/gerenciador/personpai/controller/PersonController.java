@@ -25,7 +25,7 @@ public class PersonController {
     @PostMapping
     public MessageResponseDTO createPerson(@RequestBody Person person){
         Person savedPerson = personRepository.save(person);
-        System.out.println("adicionado pessoa: " + person);
+        //System.out.println("adicionado pessoa: " + person);
         
         return MessageResponseDTO
         .builder()
