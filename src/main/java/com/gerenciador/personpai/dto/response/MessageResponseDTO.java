@@ -1,4 +1,4 @@
-package com.gerenciador.personpai.dto;
+package com.gerenciador.personpai.dto.response;
 
 import lombok.Builder;
 import lombok.Data;
